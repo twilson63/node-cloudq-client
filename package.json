@@ -1,0 +1,16 @@
+{
+  "author": "Tom Wilson <tom@jackhq.com>",
+  "name": "cloudq-client",
+  "description": "A Worker Module that can connect to any cloudq service.",
+  "version": "0.0.0",
+  "repository": {
+    "url": ""
+  },
+  "engines": {
+    "node": "~v0.4.9"
+  },
+  "dependencies": {
+    "request": ">= 0.x.x"
+  },
+  "devDependencies": {}
+}
