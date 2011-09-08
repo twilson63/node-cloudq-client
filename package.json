@@ -7,10 +7,13 @@
     "url": ""
   },
   "engines": {
-    "node": "~v0.4.9"
+    "node": ">= 0.4.9"
   },
   "dependencies": {
     "request": ">= 0.x.x"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "coffee-script": ">= 1.x.x",
+    "jasmine-node": ">= 0.x.x"
+  }
 }
