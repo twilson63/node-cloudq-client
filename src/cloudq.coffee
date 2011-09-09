@@ -4,11 +4,8 @@ request = require 'request'
 cloudq =
   url: null 
   watch: (interval, queue, cb) ->
-    @on 'completed-job', (id) -> @_complete(id)
-    @on 'error-job', (err) -> console.log(err)
-
-    setInterval _get(queue, @_work(job)), interval
-
+    setInterval (@_get(queue, cb)), interval
+    
   publish: (queue, job, cb) ->
     request
       uri: [@url, queue].join('/')
@@ -19,8 +16,6 @@ cloudq =
         cb(err, body)
 
   _get: (queue, cb) ->
-    # request job from queue
-    #my_emit = @emit
     request 
       uri: [@url, queue].join '/'
       json: true
@@ -34,11 +29,12 @@ cloudq =
       json: true
       (err, resp, body) -> cb(err, body)
 
-  _work: (job) ->
-    emit 'work-job'
+  _work: (job, cb) ->
+    #@emit 'work-job'
     require[job.klass].perform job.args, (err) ->
       @_complete job.id unless err
-      emit 'completed-job', job.id
+      cb err, 'completed'
+      #@emit 'completed-job', job.id
 
 # mixin EventEmitter
 cloudq[k] = func for k, func of EventEmitter.prototype

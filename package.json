@@ -15,5 +15,7 @@
   "devDependencies": {
     "coffee-script": ">= 1.x.x",
     "jasmine-node": ">= 0.x.x"
-  }
+  },
+  "directories": "./lib",
+  "main": "./lib/cloudq"
 }
