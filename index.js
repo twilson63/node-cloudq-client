@@ -3,15 +3,20 @@
   request = require('request');
   module.exports = {
     url: null,
-    this.uri: function(queue) {
+    uri: function(queue) {
       return [this.url, queue].join('/');
     },
-    queue: function(queue, job, cb) {
+    queue: function(queue, klass, args, cb) {
+      var job;
+      job = {
+        job: {
+          klass: klass,
+          args: args
+        }
+      };
       return request.post({
         uri: this.uri(queue),
-        json: JSON.stringify({
-          job: job
-        })
+        json: job
       }, cb);
     },
     reserve: function(queue, cb) {
@@ -22,7 +27,7 @@
     },
     complete: function(queue, id, cb) {
       return request.del({
-        uri: this.uri(queue),
+        uri: [this.uri(queue), id].join('/'),
         json: true
       }, cb);
     }
